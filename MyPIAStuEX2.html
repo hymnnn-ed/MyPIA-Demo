@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magic pH Color Experiment</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #dff9fb, #c7ecee);
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        .header {
+            background-color: #22a6b3;
+            color: white;
+            padding: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .main-content {
+            padding: 20px;
+        }
+
+        .instructions {
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: #34495e;
+        }
+
+        .ph-scale {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .ph-box {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            border: 1px solid white;
+            color: white;
+        }
+
+        .acid { background-color: #e74c3c; }
+        .neutral { background-color: #f1c40f; }
+        .alkaline { background-color: #27ae60; }
+
+        .substances {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .substance {
+            padding: 10px 20px;
+            background-color: #74b9ff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .substance:hover {
+            transform: scale(1.1);
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #2d3436;
+        }
+
+        .indicator {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+            border-radius: 50%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            line-height: 200px;
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">酸鹼變色實驗</div>
+    <div class="main-content">
+        <div class="instructions">
+            Select a substance below to test its pH and see the magic color change!
+        </div>
+
+        <!-- pH Scale -->
+        <div class="ph-scale">
+            <div class="ph-box acid">Acidic<br>(1-6)</div>
+            <div class="ph-box neutral">Neutral<br>(7)</div>
+            <div class="ph-box alkaline">Alkaline<br>(8-14)</div>
+        </div>
+
+        <!-- Substance Buttons -->
+        <div class="substances">
+            <button class="substance" onclick="testSubstance('lemon')">🍋 Lemon Juice</button>
+            <button class="substance" onclick="testSubstance('water')">💧 水</button>
+            <button class="substance" onclick="testSubstance('soap')">🧼 Soap Solution</button>
+            <button class="substance" onclick="testSubstance('vinegar')">🍶 Vinegar</button>
+            <button class="substance" onclick="testSubstance('bakingSoda')">🥄 Baking Soda</button>
+        </div>
+
+        <!-- Result Display -->
+        <div class="result">
+            pH Level: <span id="ph-level">N/A</span>
+        </div>
+        <div class="indicator" id="indicator" style="background-color: #bdc3c7;">
+            Color
+        </div>
+    </div>
+
+    <script>
+        // Substance pH values
+        const substances = {
+            lemon: { pH: 2, color: "#e74c3c", description: "Acidic" },
+            water: { pH: 7, color: "#f1c40f", description: "Neutral" },
+            soap: { pH: 9, color: "#27ae60", description: "Alkaline" },
+            vinegar: { pH: 3, color: "#e74c3c", description: "Acidic" },
+            bakingSoda: { pH: 8, color: "#27ae60", description: "Alkaline" },
+        };
+
+        // Test substance
+        function testSubstance(name) {
+            const substance = substances[name];
+            document.getElementById("ph-level").textContent = `${substance.pH} (${substance.description})`;
+            const indicator = document.getElementById("indicator");
+            indicator.style.backgroundColor = substance.color;
+            indicator.textContent = substance.description;
+        }
+    </script>
+</body>
+</html>
