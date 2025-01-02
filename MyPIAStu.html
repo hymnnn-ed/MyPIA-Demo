@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyPIA Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f8f9fa;
+        }
+
+        .header {
+            background-color: #1976d2; /* Blue color */
+            color: white;
+            padding: 15px;
+            font-size: 20px;
+            text-align: left;
+        }
+
+        .sidebar {
+            background-color: #eeeeee;
+            width: 200px;
+            padding: 15px;
+            position: fixed;
+            height: 100%;
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .sidebar a:hover {
+            background-color: #ddd;
+            color: #1976d2; /* Blue color */
+        }
+
+        .main-content {
+            margin-left: 220px;
+            padding: 20px;
+        }
+
+        .assistant-box {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .assistant-box img {
+            width: 50px;
+            cursor: pointer;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .typing-animation {
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap;
+            animation: typing 3.5s steps(30, end);
+        }
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .action-buttons button {
+            background-color: #1976d2; /* Blue color */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+
+        .action-buttons button:hover {
+            background-color: #1565c0; /* Darker blue color */
+        }
+
+        .text-box-container {
+            margin-top: 20px;
+        }
+
+        .text-box {
+            width: 80%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            text-align: left;
+            margin: 10px 0;
+            box-sizing: border-box;
+        }
+
+        /* Run away and come back animation */
+        @keyframes runAwayAndComeBack {
+            0% {
+                transform: translateX(0); /* Start at original position */
+            }
+            50% {
+                transform: translateX(200px); /* Move the avatar to the right */
+            }
+            100% {
+                transform: translateX(0); /* Return the avatar to original position */
+            }
+        }
+
+        /* Class to trigger the run away animation */
+        .run-away-animation {
+            animation: runAwayAndComeBack 1s ease-in-out;
+        }
+
+        /* Avatar hover effect */
+        .assistant-box img:hover {
+            transform: scale(1.2);
+            transition: transform 0.3s ease;
+        }
+
+        /* Predicted Grades Section */
+        .predicted-grades {
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* Create 3 equal-width columns */
+            gap: 20px;
+        }
+
+        .predicted-grade-box {
+            background-color: #e0ecf8; /* Blue color */
+            color: rgb(4, 40, 139);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            font-size: 18px;
+            position: relative;
+        }
+
+        .predicted-grade-box h3 {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .predicted-grade-box p {
+            font-size: 32px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        /* Progress Bar Styling */
+        .progress-bar-container {
+            width: 100%;
+            height: 10px;
+            background-color: #ddd;
+            border-radius: 5px;
+            margin-top: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            border-radius: 5px;
+            transition: width 2s ease-in-out; /* Adding smooth transition */
+        }
+
+        .A { width: 0%; background-color: #4caf50; } /* Green for A */
+        .Bplus { width: 0%; background-color: #8bc34a; } /* Light green for B+ */
+        .B { width: 0%; background-color: #ffeb3b; } /* Yellow for B */
+        .Cplus { width: 0%; background-color: #ff9800; } /* Orange for C+ */
+        .C { width: 0%; background-color: #f44336; } /* Red for C */
+        .D { width: 0%; background-color: #e91e63; } /* Pink for D */
+    </style>
+</head>
+<body>
+    <div class="header">
+        博文教育中學 MyPIA (學生版)
+    </div>
+    <div class="sidebar">
+        <a href="#">我的班組</a>
+        <a href="#">1A 中文</a>
+        <a href="#">1A English</a>
+        <a href="#">1A 數學</a>
+        <a href="MyPIAStuSci.html">1A 科學</a>
+        <a href="#">自主學習區</a>
+        <a href="#">各科練習</a>
+        <a href="#">功課表現</a>
+    </div>
+    <div class="main-content">
+        <div class="assistant-box">
+            <img src="pia_avatar.png" alt="Assistant Icon" id="avatar">
+            <h2><span class="typing-animation">曾同學午安，有甚麼可以幫到你？</span></h2>
+            <!-- Text Box Section -->
+            <div class="text-box-container">
+                <input type="text" class="text-box" placeholder="請輸入您的指示...">
+            </div>
+            <div class="action-buttons">
+                <button>功課提問</button>
+                <button>快速練習</button>
+                <button>溫故知新</button>
+                <button>翻譯文字</button>
+            </div>
+        </div>
+
+        <!-- Predicted Grades Section -->
+        <div class="predicted-grades">
+            <div class="predicted-grade-box">
+                <h3>中文</h3>
+                <p>A</p>
+                <div class="progress-bar-container">
+                    <div class="progress-bar A"></div>
+                </div>
+            </div>
+            <div class="predicted-grade-box">
+                <h3>English</h3>
+                <p>B+</p>
+                <div class="progress-bar-container">
+                    <div class="progress-bar Bplus"></div>
+                </div>
+            </div>
+            <div class="predicted-grade-box">
+                <h3>數學</h3>
+                <p>B</p>
+                <div class="progress-bar-container">
+                    <div class="progress-bar B"></div>
+                </div>
+            </div>
+            <div class="predicted-grade-box">
+                <h3>科學</h3>
+                <p>C+</p>
+                <div class="progress-bar-container">
+                    <div class="progress-bar Cplus"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript to handle avatar click and apply run away animation
+        const avatar = document.getElementById('avatar');
+
+        avatar.addEventListener('click', function() {
+            avatar.classList.add('run-away-animation');
+            
+            // Remove the class after animation ends to reset
+            avatar.addEventListener('animationend', () => {
+                avatar.classList.remove('run-away-animation');
+            });
+        });
+
+        // JavaScript to trigger the progress bar animation
+        window.addEventListener('load', function() {
+            // Assign width values based on the grade
+            document.querySelector('.A').style.width = '100%';
+            document.querySelector('.Bplus').style.width = '85%';
+            document.querySelector('.B').style.width = '75%';
+            document.querySelector('.Cplus').style.width = '65%';
+            document.querySelector('.C').style.width = '55%';
+            document.querySelector('.D').style.width = '45%';
+        });
+    </script>
+</body>
+</html>

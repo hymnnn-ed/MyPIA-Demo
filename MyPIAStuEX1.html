@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>光合作用實驗</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: linear-gradient(to bottom, #7ec850, #ffffff);
+        }
+
+        .header {
+            background-color: #28a745;
+            color: white;
+            padding: 15px;
+            font-size: 20px;
+            text-align: left;
+        }
+
+        .main-content {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .experiment-panel {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 600px;
+            margin: 20px auto;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .slider-container {
+            margin: 20px 0;
+        }
+
+        .slider-container label {
+            display: block;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .slider-container input {
+            width: 100%;
+        }
+
+        .results {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .start-button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .start-button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        光合作用實驗
+    </div>
+    <div class="main-content">
+        <div class="experiment-panel">
+            <h2>模擬光合作用實驗</h2>
+            <div class="slider-container">
+                <label for="light-intensity">光的強度: <span id="light-value">50</span>%</label>
+                <input type="range" id="light-intensity" min="0" max="100" value="50" oninput="updateValue('light-value', this.value)">
+            </div>
+            <div class="slider-container">
+                <label for="co2-level">二氧化碳濃度: <span id="co2-value">50</span>%</label>
+                <input type="range" id="co2-level" min="0" max="100" value="50" oninput="updateValue('co2-value', this.value)">
+            </div>
+            <div class="slider-container">
+                <label for="temperature">溫度: <span id="temp-value">25</span>°C</label>
+                <input type="range" id="temperature" min="0" max="50" value="25" oninput="updateValue('temp-value', this.value)">
+            </div>
+            <button class="start-button" onclick="simulateExperiment()">開始實驗</button>
+            <div class="results" id="results"></div>
+        </div>
+    </div>
+
+    <script>
+        function updateValue(id, value) {
+            document.getElementById(id).innerText = value;
+        }
+
+        function simulateExperiment() {
+            const light = document.getElementById("light-intensity").value;
+            const co2 = document.getElementById("co2-level").value;
+            const temp = document.getElementById("temperature").value;
+
+            const rate = Math.round(
+                (light * 0.4 + co2 * 0.3 + (50 - Math.abs(temp - 25)) * 0.3)
+            );
+
+            const resultMessage = `光合作用速率: ${rate}%`;
+            document.getElementById("results").innerText = resultMessage;
+        }
+    </script>
+</body>
+</html>

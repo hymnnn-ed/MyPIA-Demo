@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>功課區</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f8f9fa;
+        }
+
+        .header {
+            background-color: #1976d2;
+            color: white;
+            padding: 15px;
+            font-size: 20px;
+            text-align: left;
+        }
+
+        .sidebar {
+            background-color: #eeeeee;
+            width: 200px;
+            padding: 15px;
+            position: fixed;
+            height: 100%;
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .sidebar a:hover {
+            background-color: #ddd;
+            color: #1976d2;
+        }
+
+        .main-content {
+            margin-left: 220px;
+            padding: 20px;
+        }
+
+        .progress-bar-container {
+            margin-bottom: 20px;
+            background-color: #eee;
+            border-radius: 10px;
+            padding: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .progress-bar-title {
+            margin: 0 0 10px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .progress-bar {
+            height: 20px;
+            width: 100%;
+            background-color: #ccc;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            transition: width 1.5s ease-in-out;
+        }
+
+        .content-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .completed-section, .incomplete-section {
+            flex: 1;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .completed-section {
+            background-color: #d4edda; /* Light green for completed */
+        }
+
+        .incomplete-section {
+            background-color: #f8d7da; /* Light red for incomplete */
+        }
+
+        .section-header {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .assignment {
+            background-color: white;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .assignment h3 {
+            margin: 0 0 10px;
+        }
+
+        .assignment p {
+            margin: 5px 0;
+        }
+
+        .assignment button {
+            background-color: #1976d2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .assignment button:hover {
+            background-color: #1565c0;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 15px;
+            background-color: #1976d2;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .back-button:hover {
+            background-color: #1565c0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        博文教育中學 MyPIA (學生版) - 1A 科學
+    </div>
+    <div class="sidebar">
+        <a href="MyPIAStu.html">返回主頁</a>
+        <a href="MyPIAStuHW.html">功課區</a>
+        <a href="MyPIAStuEX.html">實驗區</a>
+        <a href="溫習區.html">溫習區</a>
+    </div>
+    <div class="main-content">
+        <a href="MyPIAStuSci.html" class="back-button">返回上一頁</a>
+        <h2>功課區</h2>
+        
+        <!-- Progress Bar Section -->
+        <div class="progress-bar-container">
+            <p class="progress-bar-title">學期末成績預測</p>
+            <div class="progress-bar">
+                <div class="progress-bar-fill" id="progress-fill"></div>
+            </div>
+        </div>
+
+        <div class="content-container">
+            <!-- Completed Assignments Section -->
+            <div class="completed-section">
+                <div class="section-header">已完成功課</div>
+                <div class="assignment">
+                    <h3>化學實驗報告</h3>
+                    <p>截止日期: 2024-01-10</p>
+                    <button>查看評分</button>
+                </div>
+                <div class="assignment">
+                    <h3>[IS-2402] 生物多樣性</h3>
+                    <p>截止日期: 2024-01-12</p>
+                    <button>查看評分</button>
+                </div>
+            </div>
+
+            <!-- Incomplete Assignments Section -->
+            <div class="incomplete-section">
+                <div class="section-header">未完成功課</div>
+                <div class="assignment">
+                    <h3>每週挑戰</h3>
+                    <p>截止日期: 2024-01-07</p>
+                    <button>完成</button>
+                </div>
+                <div class="assignment">
+                    <h3>[IS-2403] 光合作用</h3>
+                    <p>截止日期: 2024-01-15</p>
+                    <button>完成</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function updateProgressBar(percentage) {
+            const progressFill = document.getElementById("progress-fill");
+
+            let color = "";
+            if (percentage >= 90) {
+                color = "#4caf50"; // Green for A+
+            } else if (percentage >= 85) {
+                color = "#8bc34a"; // Light green for A
+            } else if (percentage >= 80) {
+                color = "#cddc39"; // Yellow-green for A-
+            } else if (percentage >= 70) {
+                color = "#ffc107"; // Yellow for B
+            } else if (percentage >= 60) {
+                color = "#ff9800"; // Orange for C
+            } else if (percentage >= 50) {
+                color = "#f44336"; // Red for D
+            } else {
+                color = "#9c27b0"; // Purple for F
+            }
+
+            progressFill.style.backgroundColor = color;
+            progressFill.style.width = "0%";
+
+            // Animation
+            setTimeout(() => {
+                progressFill.style.width = percentage + "%";
+            }, 100);
+        }
+
+        // Example: Update the progress bar with a score of 87%
+        updateProgressBar(87);
+    </script>
+</body>
+</html>
+
+
+
+
